@@ -1,10 +1,21 @@
 language: python
+
+stages:
+  - test
+  - docs
+  
 python:
   - "3.4"
 
 install:
   - pip install -r requirements-dev.txt
 
-script:
- - pylint -d R -d C -e missing-docstring sources
- - python -munittest discover -s tests
+test:
+  stage: test
+  script:
+    - pylint -d R -d C -e missing-docstring sources
+ 
+docs:
+  stage: docs
+  script:
+    - python -munittest discover -s tests
